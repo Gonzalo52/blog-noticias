@@ -1,0 +1,30 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+
+
+<h3> Nuevo anuncio clasificado </h3>
+
+<form method="POST" action="">
+    {% csrf_token %}
+
+    {% if classified is not None %}
+        <input type="hidden" value="{{ classified.id }}" name="id">
+    {% endif %}
+
+    <div class="form-group my-3">
+        <label>Titulo</label>
+        <input type="text" class="form-control" name="title" placeholder="Titulo" 
+        {% if classified is not None %}
+            value="{{ classified.title }}"
+        {% endif %}>
+    </div>
+
+    <div class="form-group my-3">
+        <label>Texto</label>
+        <textarea class="form-control" name="text">{% if classified is not None %}{{ classified.text }}{% endif %}</textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Enviar</button>
+</form>
+
+{% endblock %}

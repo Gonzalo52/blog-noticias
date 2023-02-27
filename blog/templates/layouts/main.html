@@ -1,0 +1,100 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'styles/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/blog.css' %}">
+    <title>Blog de noticias</title>
+</head>
+
+<body>
+    <div class="container">
+        <header class="blog-header lh-1 py-3">
+            <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+                <div class="container-fluid">
+                    <a class="navbar-brand" href="/">Blog de noticias</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarCollapse">
+                        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Inicio</a>
+                            </li>
+                            {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/created">Publicar en clasificados</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/logout"> Cerrar sesión </a>
+                            </li>
+                            {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/login"> Iniciar sesión </a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+    </div>
+
+    <main class="mt-2">
+        <section class="row g-5">
+            <div class="col-md-8">
+                {% block content %} 
+               
+                {% endblock %}
+            </div>
+            
+            <aside class="col-md-4">
+                <div class="position-sticky" style="top: 2rem;">
+                        
+                    <div class="p-4" style="background-color:#25251f">
+                        <h4 class="fst-italic">Categorías</h4>
+                        <ol class="list-unstyled mb-0">
+                            <li><a href='/present'>Actualidad</a></li>
+                            <li><a href='/police'>Policiales</a></li>
+                            <li><a href='/classified'>clasificados</a></li>
+                            <li><a href='/economy'>Economia</a></li>
+                            <li><a href='/sports'>Deportes</a></li>
+                            <li><a href='/technology'>Tecnologia</a></li>
+                        </ol>
+                    </div>
+            
+                       
+            
+                    <div class="p-4">
+                        <h4 class="fst-italic">Nuestras Autores</h4>
+                        <ol class="list-unstyled">
+                            <li><a href='/author1'>Autor1 uno</a></li>
+                            <li><a href='/author2'>Autor2 dos</a></li>
+                            <li><a href='/author3'>Autor3 tres</a></li>
+                            <li><a href='/author4'>Autor4 cuatro</a></li>
+                            <li><a href='/author5'>Autor5 cinco</a></li>
+                    </div>
+
+
+                    <div class="p-4">
+                        <h4 class="fst-italic">Redes</h4>
+                        <ol class="list-unstyled">
+                            <li><a href='https://www.linkedin.com/'>linkedin</a></li>
+                            <li><a href='https://github.com/'>Github</a></li>
+                        </ol>
+                    </div>
+
+                </div>
+            </aside>
+        </section>
+
+    </main>
+
+
+    <footer class="blog-footer">
+        <h3>Proyecto final backend django <a href="https://lumetrio.com/">Lumetrio</a></h3>
+    </footer>
+
+</body>

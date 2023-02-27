@@ -1,0 +1,25 @@
+{% extends 'layouts/main.html' %}
+{% load static %}
+
+{% block content %}
+
+{% for a in author %}
+
+<h2>Conozca a nuestros autores</h2>
+<h2>{{ a.name }}  {{ a.last_name }}</h2>
+<h4>{{ a.category }}</h4>
+<p>{{ a.comment }}</p>
+
+{% endfor %}
+
+{% for p in posts %}
+
+<h2>Todas las noticias escritas por el:</h2>
+<h3>{{ p.title }}</h3>
+<h6>{{ p.category }} {{ p.created }} {{ p.author }}</h6>
+<p>{{ p.description }}</p>
+<h4><a href="/post/{{p.id}}">Continuar leyendo</a></h4>
+
+{% endfor %}
+
+{% endblock %}

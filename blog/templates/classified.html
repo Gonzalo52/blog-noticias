@@ -1,0 +1,36 @@
+{% extends 'layouts/main.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Anuncios clasificados</h1>
+
+{% for c in classifieds %}
+
+<h2>{{ c.user }} escribio:</h2>
+<h3>{{ c.title }}</h3>
+<p>{{ c.text }}</p>
+
+    {% if request.user.is_authenticated and request.user == c.user%}
+        <a href="/created/{{c.id}}">Editar</a>
+    {% endif %}
+
+    {% for p in c.comment_set.all %}
+        <p> {{p.user.username}} Escribió : {{p.text}}</p>
+    {%endfor%}
+
+    {% if request.user.is_authenticated %}
+    <form method="POST" action="/comment/">
+        {% csrf_token %}
+        <input type="hidden" value="{{c.id}}" name="classifieds">
+        <div class="form-group my-3">
+            <textarea class="form-control" name="text" placeholder="Escibe un comentario"></textarea>
+        </div>
+        <button class="btn btn-primary" type="submit">Comentar</button>
+
+    </form>
+    {%endif%}
+
+{% endfor %}
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends 'layouts/main.html' %}
+
+{% block content %}
+
+    {% for p in post %}
+        <h2>{{ p.title }}</h2>
+
+        <h6>{{ p.category }}</h6>
+
+        <h4>{{ p.description }}</h4>
+
+        <p>{{ p.text }}</p>
+
+        <h5>{{ p.author }}</h5>
+
+        <div>
+            {% for c in p.opinions_set.all %}
+                <p> {{ c.user.username }} Escribió : </p>
+                <p>{{c.text}}</p>
+            {%endfor%}
+        </div>
+        
+        <div>
+            {% if request.user.is_authenticated %}
+                <form method="POST" action="/opinions/">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{p.id}}" name="post" >
+                    <div class="form-group my-3">
+                        <textarea class="form-control" name="text" placeholder="Escibe un comentario"></textarea>
+                    </div>
+                    <button class="btn btn-primary" type="submit">Comentar</button>
+
+                </form>
+            {% endif %}
+        </div>
+    {% endfor %}
+
+{% endblock %}
